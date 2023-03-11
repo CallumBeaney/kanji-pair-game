@@ -16,9 +16,9 @@ const numWords = 8; // results in double the number of kanji
 function buildGrid () {
   const kanjiList = getListOfKanji(wordList, numWords); // must make const or shuffling operations do not work
   // console.log(kanjiList) // debug
-  // const shuffledList = shuffle(kanjiList);
+  const shuffledList = shuffle(kanjiList);
   // console.log(shuffledList) // debug
-  buildButtons(kanjiList);
+  buildButtons(shuffledList);
 }
 
 function getListOfKanji(words, limit) {
