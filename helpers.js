@@ -1,3 +1,4 @@
+
 let state = {
   "tries" : 0,
   "kanji" : [],
@@ -5,7 +6,9 @@ let state = {
   "successes" : [],
 };
 
+let counter = 0;
 const numWords = 8; // results in double the number of kanji
+// let screenState = isSmallScreen();
 
 !function main() {
   buildGrid(numWords);
@@ -15,9 +18,9 @@ const numWords = 8; // results in double the number of kanji
 
 function buildGrid () {
   const kanjiList = getListOfKanji(wordList, numWords); // must make const or shuffling operations do not work
-  console.log(kanjiList) // debug
+  // console.log(kanjiList) // debug
   const shuffledList = shuffle(kanjiList);
-  console.log(shuffledList) // debug
+  // console.log(shuffledList) // debug
   buildButtons(shuffledList);
 }
 
@@ -90,6 +93,7 @@ function tryKanji(newKanji, id) {
     // word successful
     if ((lookup in wordList)) 
     { 
+      counter++;
       addToUserList(lookup);
 
       // Colour the successful buttons
@@ -159,14 +163,91 @@ function resetButtons(thisId, prevId){
 
 
 function addToUserList(word){
-  // state.wordCount++;
-  // document.getElementById("wordcount").innerHTML = state.wordCount;
-  // const buttonID = "rb" + state.wordCount;
 
-  let buildElem = '<div><h3>' + word + '</h3></div>';
+  if (counter == 1) {
+    document.getElementById("title").remove();
+  }
 
-  document.getElementById("infolad").innerHTML += buildElem;
+  const kana = wordList[word].k;
+  const definition = wordList[word].d;
 
+  let buildElem = "#" + counter;
+  buildElem  += '<table class="tg"><colgroup><col style="width: 25%"><col style="width: 50%"><col style="width: 50%">'
+              + '<thead><tr>' 
+              +   '<th class="tg-nrix" style="font-size: x-large;">' + word + '</th>'
+              +   '<th class="tg-nrix medium">' + kana + '</th>';
+  if (definition.length >= 10) {
+    buildElem += '<th class="tg-nrix" style="font-size: 18px;">' + definition + '</th></tr></thead>';
+  } else {              
+    buildElem += '<th class="tg-nrix medium">' + definition + '</th></tr></thead>';
+  }              
+              
 
+  const kanji1eng  = dictionary[word[0]].eigo;
+  const kanji1kana = dictionary[word[0]].hatsuon;
+
+  buildElem  += '<tbody><tr>' 
+              + '<th class="tg-nrix medium">' + word[0] + '</td>';
+
+  if (kanji1eng.length >= 20) {
+    buildElem += '<td class="tg-nrix smaller">' + kanji1eng + '</td>';
+  } else {
+    buildElem += '<td class="tg-nrix medium">' + kanji1eng + '</td>';
+  }
+
+  if (kanji1kana.length >= 30) {
+    buildElem += '<td class="tg-nrix" style="font-size:13px;">' + kanji1kana + '</td></tr>';
+  } else if (kanji1kana.length >= 15) {
+    buildElem += '<td class="tg-nrix smaller">' + kanji1kana + '</td></tr>';
+  } else {
+    buildElem += '<td class="tg-nrix medium">' + kanji1kana + '</td></tr>';
+  }
   
+  const kanji2eng  = dictionary[word[1]].eigo;
+  const kanji2kana = dictionary[word[1]].hatsuon;
+
+  buildElem  += '<tbody><tr>' 
+              + '<th class="tg-nrix medium">' + word[1] + '</td>';
+
+  if (kanji2eng.length >= 20) {
+    buildElem += '<td class="tg-nrix smaller">' + kanji2eng + '</td>';
+  } else {
+    buildElem += '<td class="tg-nrix medium">' + kanji2eng + '</td>';
+  }
+
+  if (kanji2kana.length >= 30) {
+    buildElem += '<td class="tg-nrix" style="font-size:13px;">' + kanji2kana + '</td></tr>';
+  } else if (kanji2kana.length >= 15) {
+    buildElem += '<td class="tg-nrix smaller">' + kanji2kana + '</td></tr>';
+  } else {
+    buildElem += '<td class="tg-nrix medium">' + kanji2kana + '</td></tr>';
+  }
+                          
+  buildElem  += '</tbody></table><br>';
+
+  // if (screenState == true) {
+    document.getElementById("infolad").insertAdjacentHTML("afterbegin", buildElem);
+  // } else {
+  //   document.getElementById("infolad").insertAdjacentHTML("beforeend", buildElem);
+  // }
+
+  updateScroll();
+
 }
+
+function updateScroll() 
+{
+    var element = document.getElementById("infolad");
+    // if (screenState == true){
+      element.scrollTop = 0; // todo: fix thisun
+    // } else {
+    //   element.scrollTop = element.scrollHeight;
+    // }
+}
+
+// don't want
+// function isSmallScreen() {
+//   // return true if the screen width is less than 800 pixels
+//   const screenWidth = window.innerWidth;
+//   return screenWidth < 800;  
+// }

@@ -1,6 +1,6 @@
 html, body {
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   margin: 0;
   padding: 0;
 }
@@ -13,95 +13,173 @@ body {
   background-color:#a8a8a8;
 }
 
-.overgrid { 
-  display: grid; 
-  grid-template-columns: repeat(2, 1fr); 
-  grid-template-rows: repeat(1, 1fr); 
+    .overcontainer { 
+      display: grid; 
+      grid-template-columns: repeat(2, 1fr); 
+      grid-template-rows: repeat(1, 1fr); 
 
+      height: 100%;
+      /* align-items: center; */
+      /* background-color: #792242; */
+      /* justify-content: center; */
+    } 
+
+        /* Wrap the kanji .grid in this */
+        .gridwrapper{ 
+          padding-top: 5%;
+          padding-inline: 5%;
+          /* height: 100vh; */
+          /* justify-content: center; */
+        }
+
+            .grid { 
+              display: grid; 
+              grid-template-columns: repeat(4, 1fr); 
+              grid-template-rows: repeat(4, 1fr); 
+              grid-column-gap: 8px;
+              grid-row-gap: 8px; 
+              /* background-color:#414f8d; */
+            }
+                    button.kanjiButton {
+                      /* margin:0 auto; */
+                      aspect-ratio: 1 / 1;
+                      /* padding: 3% 2%; */
+                      /* width: 100%;
+                      height: 100%; */
+                      font-size: 5rem;
+                      color: #ededed;
+                      background-color: #666666;
+                      text-align: center;
+                      border:1px transparent;
+                    }
+                    .kanjiButton.failure {
+                      background-color: #d93838;
+                      /* background-color: #ed3c3c; */
+                      color: #f7f7f7;
+                    }
+                    .kanjiButton.success {
+                      color: #ffffff;
+                      /* background-color:rgb(78, 175, 91); */
+                      background-color: #18a94d;
+                    }
+                    .kanjiButton.selected {
+                      background-color: #cdcdcd;
+                      color: #666666;
+                    }
+                    .kanjiButton.reSelected {
+                      background-color: #ddcf3f;
+                      color: #484848;
+                    }
+
+
+.infowrapper{ 
   height: 100%;
-  justify-content: center;
-  align-items: center;
-} 
+  /* background-color: #e7d942; */
+}                    
+      div.infopanel {
+        margin: auto;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        max-height: 95vh;
+        justify-content: center;
+        padding-top: 5%;
+        padding-left: 15%;
+        padding-right: 15%;
+        /* background-color:#418d54; */
+      }
+      ::-webkit-scrollbar { 
+        display: none; 
+      }
+                                                            
+                                              .tg {
+                                                border-collapse: collapse;
+                                                border-spacing: 0;
+                                                table-layout: fixed; width: 100%; align-items: center;
+                                              }
+                                                      .tg td {
+                                                        border-color: black;
+                                                        border-style:dotted;
+                                                        border-width: 1px;
+                                                        font-family: Arial, sans-serif;
+                                                        font-size: 14px;
+                                                        overflow: hidden;
+                                                        padding: 10px 5px;
+                                                        word-break: normal;
+                                                      }
 
-/* Wrap .grid in this */
-.subgrid{ 
-  height: 100%;
-}
+                                                      .tg th {
+                                                        border-color: black;
+                                                        border-style:dotted;
+                                                        border-width: 1px;
+                                                        font-family: Arial, sans-serif;
+                                                        font-size: 14px;
+                                                        font-weight: normal;
+                                                        overflow: hidden;
+                                                        padding: 10px 5px;
+                                                        word-break: normal;
+                                                      }
 
-.grid { 
-  display: grid; 
-  grid-template-columns: repeat(4, 1fr); 
-  grid-template-rows: repeat(4, 1fr); 
-  grid-column-gap: 8px;
-  grid-row-gap: 8px; 
-  justify-content: center;
-  align-items: center;
-  padding: 5% 15%; /* change size of grid inside overgrid */
-  
+                                                      .tg .tg-nrix {
+                                                        text-align: center;
+                                                        vertical-align: middle;
+                                                        overflow-wrap: break-word;
+                                                        
+                                                      }
+                                                      .tg .tg-nrix.smaller{
+                                                        font-size: 16px;
+                                                      }
+                                                      .tg .tg-nrix.medium{
+                                                        font-size: 18px;
+                                                      }
+ #title {
   width: auto;
-  height: fill;
-  /* width: 40%; */
-  /* height: 30%; */
+  font-size:xx-large;
+  font-weight: lighter;
+  text-align:justify;
+  color: #1b1b1b;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  padding-top: 7%;
 }
-
-button.kanjiButton {
-  /* margin:0 auto; */
-  aspect-ratio: 1 / 1;
-  /* padding: 3% 2%; */
+#title:after {
+  content: "";
+  display: inline-block;
   width: 100%;
-  height: 100%;
-  font-size: 5rem;
-  color: #ededed;
-  background-color: #666666;
-  text-align: center;
-  border:1px transparent;
-}
-.kanjiButton.failure {
-  background-color: #ed3c3c;
-  color: #f7f7f7;
-}
-.kanjiButton.success {
-  color: #ffffff;
-  background-color: #19ac4f;
-}
-.kanjiButton.selected {
-  background-color: #cdcdcd;
-  color: #666666;
-}
-.kanjiButton.reSelected {
-  background-color: #2540b7;
-  color: #cdcdcd;
-}
+}                                                   
+                                                  
 
+@media(max-width:800px){
 
-div.infopanel {
-  display: grid; 
-  grid-column-gap: 8px;
-  grid-row-gap: 8px; 
-  justify-content: center;
-  align-items: center;
-  padding: 5% 30%;
-  
-  width: auto;
-  height: auto;
-  /* width: 40%; */
-  height:auto;
-
-}
-
-
-
-
-@media(max-width:640px){
-
-  .overgrid{
+  .overcontainer{
     grid-template-columns: repeat(1, 1fr); 
     grid-template-rows: repeat(2, 1fr); 
+    /* overflow-x: hidden; */
+    /* overflow-y: scroll; */
   }
+
+  .gridwrapper {
+    padding-top: 1%;
+    padding-inline: 1%;
+
+  }  
 
   .grid{
-    padding: 5% 5%;
+    padding: 2%;
 
   }
 
+  div.infopanel{
+    padding-top: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  button.kanjiButton {
+    font-size: 3rem;
+  }
+
+  #title{
+    padding: 5% 3%;
+
+  }
 }
