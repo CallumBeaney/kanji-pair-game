@@ -1,2 +1,5 @@
-misc/
+./miscfiles/
 .DS_store
+miscfiles/commonwords.js
+.gitignore
+miscfiles/acknowledgments.txt
