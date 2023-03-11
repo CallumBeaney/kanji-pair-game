@@ -16,9 +16,9 @@ const numWords = 8; // results in double the number of kanji
 function buildGrid () {
   const kanjiList = getListOfKanji(wordList, numWords); // must make const or shuffling operations do not work
   // console.log(kanjiList) // debug
-  const shuffledList = shuffle(kanjiList);
+  // const shuffledList = shuffle(kanjiList);
   // console.log(shuffledList) // debug
-  buildButtons(shuffledList);
+  buildButtons(kanjiList);
 }
 
 function getListOfKanji(words, limit) {
@@ -90,6 +90,8 @@ function tryKanji(newKanji, id) {
     // word successful
     if ((lookup in wordList)) 
     { 
+      addToUserList(lookup);
+
       // Colour the successful buttons
       document.getElementById(id).className = "kanjiButton success";
       document.getElementById(state.prevButton).className = "kanjiButton success";
@@ -109,7 +111,7 @@ function tryKanji(newKanji, id) {
         buildGrid(numWords);
         return;
       }
-
+      
       return;
 
     } else {  // word NOT successful
@@ -153,4 +155,18 @@ function resetButtons(thisId, prevId){
     }
     document.getElementById(cycid).className = "kanjiButton"; // reset the button
   }
+}
+
+
+function addToUserList(word){
+  // state.wordCount++;
+  // document.getElementById("wordcount").innerHTML = state.wordCount;
+  // const buttonID = "rb" + state.wordCount;
+
+  let buildElem = '<div><h3>' + word + '</h3></div>';
+
+  document.getElementById("infolad").innerHTML += buildElem;
+
+
+  
 }
