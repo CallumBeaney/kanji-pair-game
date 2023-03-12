@@ -1,9 +1,10 @@
 
 let state = {
   "tries" : 0,
-  "kanji" : [],
+  "kanjiPair" : [],
   "prevButton" : "",
   "successes" : [],
+  "gridKanji" : [],
 };
 
 let counter = 0;
@@ -18,10 +19,58 @@ const numWords = 8; // results in double the number of kanji
 
 function buildGrid () {
   const kanjiList = getListOfKanji(wordList, numWords); // must make const or shuffling operations do not work
-  // console.log(kanjiList) // debug
-  const shuffledList = shuffle(kanjiList);
-  // console.log(shuffledList) // debug
-  buildButtons(shuffledList);
+  state.gridKanji = kanjiList;
+  // const shuffledList = shuffle(kanjiList);
+  // buildButtons(shuffledList);
+  buildButtons(kanjiList);
+}
+
+function identifyRepeatUsableTiles(currentWord)
+{
+  /*  The fundamental idea of this game is to generate 16 kanji from 8 seed words,
+        but the pairs the user makes from those  16 kanji are then compared against
+        a list of words, and Not against the original 8 seed words. The very purpose 
+        of this is to allow unpredictable, natural word-identification + challenge.
+      But this makes the game Damn hard to solve without expert knowledge.
+      This function makes any kanji that ARE GREEN the colour Gold so that they have
+      a hint as to what to do next. */
+
+  const gridKanji = state.gridKanji; // array of kanji that appear in the grid
+  const successes = state.successes; // array of green kanjiButton IDs
+  let unPassedKanji = [];            // this will contain grey kanjiButton IDs
+  let viableWords = [];              //  
+  
+  // Get the kanji from within the buttons that aren't green yet
+  const unPassedButtons = document.getElementsByClassName("kanjiButton base");
+  for (i = 0; i < unPassedButtons.length; i++) {
+    unPassedKanji += unPassedButtons[i].innerHTML;
+  }
+  
+  // Get a kanji from successes list.
+  for (i = 0; i < successes.length; i++) {
+    const element = document.getElementById(successes[i]).innerHTML;
+    // Check this kanji against every element in state.gridKanji
+    for (j = 0; j < unPassedKanji.length; j++)
+    {
+      let checkerWord = element + unPassedKanji[j];
+      if (checkerWord != currentWord && checkerWord in wordList){
+        viableWords.push(checkerWord);
+      }
+    }    
+  } // Now have an array of 2-char words that can be built from 1 already-green button & grey ones.
+  
+  viableSplit = [...new Set(viableWords.flatMap(str => str.split('')))];
+  // Set contains a value only once. Spread operator converts Set back to array. flatMap(xyz) splits each 2-char String in viableWords and returns it all as single char indexes
+  console.log(viableSplit)
+
+  // Change colours of viable buttons.
+  for (i = 0; i < successes.length; i++) {
+    let checker = document.getElementById(successes[i]).innerHTML;
+    if (viableSplit.includes(checker)){
+      document.getElementById(successes[i]).className = "kanjiButton reSelected";
+    }
+  }
+  
 }
 
 function getListOfKanji(words, limit) {
@@ -44,7 +93,7 @@ function buildButtons(kanjiList)
 
   for (i = 0; i < 16; i++) {
     const buttonID = 'kb' + i;
-    const buildElem = '<button class="kanjiButton" id="' + buttonID + '" onclick="tryKanji(this.innerHTML, this.id)">' + '</button>';
+    const buildElem = '<button class="kanjiButton base" id="' + buttonID + '" onclick="tryKanji(this.innerHTML, this.id)">' + '</button>';
     document.getElementById("griddyboi").innerHTML += buildElem;
     document.getElementById(buttonID).innerHTML = kanjiList[i];
   }
@@ -62,6 +111,8 @@ function shuffle (arr) {
 }
 
 
+
+
 function tryKanji(newKanji, id) {
   // console.log(state)
 
@@ -74,20 +125,20 @@ function tryKanji(newKanji, id) {
 
     if (document.getElementById(id).className == "kanjiButton success") {
       // user is re-pushing an already-successful button
-      document.getElementById(id).className = "kanjiButton reSelected"; // colour button
+      document.getElementById(id).className = "kanjiButton success"; // colour button
     } else {
       // user is pushing first button in a pair
       document.getElementById(id).className = "kanjiButton selected"; // colour button
     }
 
-    state.kanji.push(newKanji);
+    state.kanjiPair.push(newKanji);
     state.prevButton = id;
     state.tries++;
     return;
   }
   else if (state.tries == 1){
     // user is pushing second button in the pair
-    let previousKanji = state.kanji[0];
+    let previousKanji = state.kanjiPair[0];
     let lookup = previousKanji + newKanji;
     
     // word successful
@@ -107,14 +158,16 @@ function tryKanji(newKanji, id) {
       // reset state
       state.tries--; 
       state.prevButton = "";
-      state.kanji = [];
-      console.log("well done; you've identified a pair!");
+      state.kanjiPair = [];
+      // console.log("well done; you've identified a pair!");
 
-      if (checkAllButtonsGreen()){ // the user has completed a grid -- make a new one!
+      if (checkAllButtonsPassed()){ // the user has completed a grid -- make a new one!
         state.successes = [];
+        state.gridKanji = [];
         buildGrid(numWords);
         return;
       }
+      identifyRepeatUsableTiles(lookup);
       
       return;
 
@@ -127,23 +180,35 @@ function tryKanji(newKanji, id) {
         document.getElementById(state.prevButton).className = "kanjiButton failure";
       }
       state.tries--;
-      state.kanji = [];
+      state.kanjiPair = [];
       return;
     }
   }
 }
 
-function checkAllButtonsGreen() 
-{
-    var allButtonsHaveClass = true;
-    for (var i = 0; i < (numWords * 2); i++) {
-      let cycid = "kb" + i;    
-      if (document.getElementById(cycid).className != 'kanjiButton success') {
-        allButtonsHaveClass = false;
-        break;
+
+
+function checkAllButtonsPassed() 
+{   //this is a cursed way of doing this but it's 2am and I'm dying
+
+    const successes = state.successes.map(element => parseInt(element.replace("kb", ""))).sort((a, b) => a - b);
+    const sortedSuccesses = [...new Set(successes)] // now contains an array of integers no duplicates [0, 1, 2, ..., 15]
+    const checkArray = [...Array(16).keys()]; // get 16-long array of ints
+    
+    if (checkArray.length !== sortedSuccesses.length) {
+      // console.log('The arrays are not identical');
+      return false;
+    } else {
+      // Loop through each element of the arrays and compare them
+      for (let i = 0; i < checkArray.length; i++) {
+        if (checkArray[i] !== sortedSuccesses[i]) {
+          // console.log('The arrays are not identical');
+          return false;
+        }
       }
+      // console.log('The arrays are identical');
+      return true;
     }
-    return allButtonsHaveClass;
 }
 
 function resetButtons(thisId, prevId){
@@ -154,10 +219,12 @@ function resetButtons(thisId, prevId){
       continue;
     }
     if (state.successes.includes(cycid)){ // if the user has used an already-passed button, keep it green
+      if(document.getElementById(cycid).className != "kanjiButton reSelected"){
       document.getElementById(cycid).className = "kanjiButton success";
+    }
       continue;
     }
-    document.getElementById(cycid).className = "kanjiButton"; // reset the button
+    document.getElementById(cycid).className = "kanjiButton base"; // reset the button
   }
 }
 
