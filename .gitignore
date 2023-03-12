@@ -9,3 +9,5 @@ miscfiles/wl.js
 .gitignore
 miscfiles/rarerwords.js
 t.txt
+/miscfiles
+miscfiles/kanjidictionary.js

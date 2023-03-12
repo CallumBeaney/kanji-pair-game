@@ -73,8 +73,8 @@ body {
                     .kanjiButton.reSelected {
                       background-color: #ddcf3f;
                       color: #484848;
+                      /* color: #146fca; */
                     }
-
 
 .infowrapper{ 
   height: 100%;
@@ -94,7 +94,7 @@ body {
       ::-webkit-scrollbar { 
         display: none; 
       }
-                                                            
+                                              /* https://www.tablesgenerator.com/html_tables */
                                               .tg {
                                                 border-collapse: collapse;
                                                 border-spacing: 0;
