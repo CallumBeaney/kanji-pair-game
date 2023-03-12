@@ -19,10 +19,11 @@ const numWords = 8; // results in double the number of kanji
 
 function buildGrid () {
   const kanjiList = getListOfKanji(wordList, numWords); // must make const or shuffling operations do not work
+  console.log(kanjiList)
   state.gridKanji = kanjiList;
-  // const shuffledList = shuffle(kanjiList);
-  // buildButtons(shuffledList);
-  buildButtons(kanjiList);
+  const shuffledList = shuffle(kanjiList);
+  buildButtons(shuffledList);
+  // buildButtons(kanjiList);
 }
 
 function identifyRepeatUsableTiles(currentWord)
@@ -117,6 +118,7 @@ function tryKanji(newKanji, id) {
   // console.log(state)
 
   resetButtons(id, state.prevButton);
+  
 
   if (state.tries == 0){ 
 
@@ -140,7 +142,7 @@ function tryKanji(newKanji, id) {
     // user is pushing second button in the pair
     let previousKanji = state.kanjiPair[0];
     let lookup = previousKanji + newKanji;
-    
+    // identifyRepeatUsableTiles(lookup);
     // word successful
     if ((lookup in wordList)) 
     { 
@@ -174,7 +176,7 @@ function tryKanji(newKanji, id) {
     } else {  // word NOT successful
       // console.log("sorry, this isn't a pair!");
       document.getElementById(id).className = "kanjiButton failure";
-      if (state.successes.includes(state.prevButton)){
+      if (state.successes.includes(state.prevButton) && document.getElementById(state.prevButton).className != "kanjiButton reSelected"){
         document.getElementById(state.prevButton).className = "kanjiButton success";
       } else {
         document.getElementById(state.prevButton).className = "kanjiButton failure";
