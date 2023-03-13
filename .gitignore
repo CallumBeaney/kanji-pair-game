@@ -1,13 +1,5 @@
-./miscfiles/
 .DS_store
-miscfiles/commonwords.js
 .gitignore
-miscfiles/acknowledgments.txt
-miscfiles/backup.css
-wordlist.js
-miscfiles/wl.js
-.gitignore
-miscfiles/rarerwords.js
-t.txt
+
 /miscfiles
-miscfiles/kanjidictionary.js
+WIP-hardmode/Screenshot 2023-03-12 at 19.15.11.png

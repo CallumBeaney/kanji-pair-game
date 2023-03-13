@@ -70,7 +70,7 @@ body {
                       background-color: #cdcdcd;
                       color: #666666;
                     }
-                    .kanjiButton.partSuccess {
+                    .kanjiButton.reSelected {
                       background-color: #ddcf3f;
                       color: #484848;
                     }
@@ -97,47 +97,47 @@ body {
       ::-webkit-scrollbar { 
         display: none; 
       }
-              /* https://www.tablesgenerator.com/html_tables */
-              .tg {
-                border-collapse: collapse;
-                border-spacing: 0;
-                table-layout: fixed; width: 100%; align-items: center;
-              }
-                      .tg td {
-                        border-color: black;
-                        border-style:dotted;
-                        border-width: 1px;
-                        font-family: Arial, sans-serif;
-                        font-size: 14px;
-                        overflow: hidden;
-                        padding: 10px 5px;
-                        word-break: normal;
-                      }
+                                              /* https://www.tablesgenerator.com/html_tables */
+                                              .tg {
+                                                border-collapse: collapse;
+                                                border-spacing: 0;
+                                                table-layout: fixed; width: 100%; align-items: center;
+                                              }
+                                                      .tg td {
+                                                        border-color: black;
+                                                        border-style:dotted;
+                                                        border-width: 1px;
+                                                        font-family: Arial, sans-serif;
+                                                        font-size: 14px;
+                                                        overflow: hidden;
+                                                        padding: 10px 5px;
+                                                        word-break: normal;
+                                                      }
 
-                      .tg th {
-                        border-color: black;
-                        border-style:dotted;
-                        border-width: 1px;
-                        font-family: Arial, sans-serif;
-                        font-size: 14px;
-                        font-weight: normal;
-                        overflow: hidden;
-                        padding: 10px 5px;
-                        word-break: normal;
-                      }
+                                                      .tg th {
+                                                        border-color: black;
+                                                        border-style:dotted;
+                                                        border-width: 1px;
+                                                        font-family: Arial, sans-serif;
+                                                        font-size: 14px;
+                                                        font-weight: normal;
+                                                        overflow: hidden;
+                                                        padding: 10px 5px;
+                                                        word-break: normal;
+                                                      }
 
-                      .tg .tg-nrix {
-                        text-align: center;
-                        vertical-align: middle;
-                        overflow-wrap: break-word;
-                        
-                      }
-                      .tg .tg-nrix.smaller{
-                        font-size: 16px;
-                      }
-                      .tg .tg-nrix.medium{
-                        font-size: 18px;
-                      }
+                                                      .tg .tg-nrix {
+                                                        text-align: center;
+                                                        vertical-align: middle;
+                                                        overflow-wrap: break-word;
+                                                        
+                                                      }
+                                                      .tg .tg-nrix.smaller{
+                                                        font-size: 16px;
+                                                      }
+                                                      .tg .tg-nrix.medium{
+                                                        font-size: 18px;
+                                                      }
  #title {
   width: auto;
   font-size:xx-large;
@@ -152,12 +152,7 @@ body {
   content: "";
   display: inline-block;
   width: 100%;
-}                
-
-#statisticalfellow{
-  text-align:left; 
-  padding:2%;
-}
+}                                                   
                                                   
 
 @media(max-width:800px){
@@ -192,11 +187,6 @@ body {
 
   #title{
     padding: 5% 3%;
-  }
 
-  #statisticalfellow{
-    text-align:end;
-    padding-right: 3%;
-    padding-bottom: 2%; 
   }
 }
