@@ -39,10 +39,11 @@ function buildGrid(){
   
   const kanjiList = getListOfKanji(wordList, numWords); // must make const or shuffling operations do not work
   state.gridKanji = kanjiList;
-  // const shuffledList = shuffle(kanjiList);
-  buildButtons(kanjiList);
-  // buildButtons(shuffledList);
+  const shuffledList = shuffle(kanjiList);
+  // buildButtons(kanjiList); // for debugging
+  buildButtons(shuffledList); 
 }
+
 
 // Helpers hereafter __________________________________
 
