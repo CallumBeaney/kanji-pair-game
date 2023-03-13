@@ -17,7 +17,7 @@ body {
       display: grid; 
       grid-template-columns: repeat(2, 1fr); 
       grid-template-rows: repeat(1, 1fr); 
-
+      width:auto;
       height: 100%;
       /* align-items: center; */
       /* background-color: #792242; */
@@ -45,12 +45,15 @@ body {
                     button.kanjiButton {
                       /* margin:0 auto; */
                       aspect-ratio: 1 / 1;
-                      /* padding: 3% 2%; */
+                      padding: 5% 3%;
                       /* width: 100%;
                       height: 100%; */
                       font-size: 5rem;
                       text-align: center;
                       border:1px transparent;
+                      /* for IOS etc */
+                      /* flex: 1 1 0; */
+                      /* min-width: 0; */
                     }
                     .kanjiButton.base{
                       color: #ededed;
@@ -159,6 +162,7 @@ body {
   padding:2%;
 }
                                                   
+
 
 @media(max-width:800px){
 
