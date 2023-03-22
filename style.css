@@ -81,6 +81,11 @@ body {
                       color: #f7f7f7;
                       background-color: #146fca;;
                     }
+                    
+                    .kanjiButton.reSelected{
+                      color: #f7f7f7;
+                      background-color: #146fca;;
+                    }
 
 .infowrapper{ 
   height: 100%;
