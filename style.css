@@ -47,19 +47,16 @@ body {
 
               /* background-color:#414f8d; */
             }
-                    dbutton.dkanjiButton {
-                      /* margin:0 auto; */
-                      /* aspect-ratio: 1 / 1; */
+                    /* button.kanjiButton {
+                      
                       padding: 5% 3%;
-                      /* width: 100%;
-                      height: 100%; */
+                      
                       font-size: 5rem;
                       text-align: center;
                       border:1px transparent;
-                      /* for IOS etc */
                       flex: 1 1 0;
                       min-width: 0;
-                    }
+                    } */
                     button.kanjiButton {
                       padding: 0 3%;
                       font-size: 4rem;
@@ -214,6 +211,11 @@ body {
 
   button.kanjiButton {
     font-size: 3.25rem;
+
+    padding: 0 3%;
+    
+    padding-top: 5%; /* Set the padding-top to the same value as the desired width */
+    padding-bottom: 5%;
   }
 
   #title{
