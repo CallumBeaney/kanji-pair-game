@@ -12,6 +12,7 @@ let state = {
   "prevButton" : "",       // the previously-tapped button's DOM-element ID
   "originalWords" : [],   // the original words for this gridKanji.
   "submittedWords" : [], // words that have been added to the list
+  // "yellowWords"
 };
 
 let stats = {
