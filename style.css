@@ -25,13 +25,13 @@ body {
     } 
 
         /* Wrap the kanji .grid in this */
-        .gridwrapper{ 
-          /* padding-top: 5%;
+        /* .gridwrapper{ 
+          padding-top: 5%; 
           padding-inline: 5%;
-          margin-right:  4%; */
-          /* height: 100vh; */
-          /* justify-content: center; */
-        }
+          margin-right:  4%; 
+          height: 100vh;
+          justify-content: center;
+        } */
 
             .grid { 
               display: grid; 
@@ -42,31 +42,23 @@ body {
               grid-column-gap: 8px;
               grid-row-gap: 8px; 
               width: auto;          
+              height: auto;
               padding: 3%;
               box-sizing: border-box; /* Include the padding and border in the total width and height of the button */
 
               /* background-color:#414f8d; */
             }
-                    /* button.kanjiButton {
-                      
-                      padding: 5% 3%;
-                      
-                      font-size: 5rem;
-                      text-align: center;
-                      border:1px transparent;
-                      flex: 1 1 0;
-                      min-width: 0;
-                    } */
+                  
                     button.kanjiButton {
                       padding: 0 3%;
                       font-size: 4rem;
                       text-align: center;
-                      border: 1px transparent;
-                      padding-top: 10%; /* Set the padding-top to the same value as the desired width */
-                      padding-bottom: 10%; /* Set the padding-top to the same value as the desired width */
-                      width: 100%; /* Set the width to 100% to fill the available width of the container */
-                      box-sizing: border-box; /* Include the padding and border in the total width and height of the button */
-                      /* flex: 1 1 0; */
+                      border:1px transparent;
+                      padding-top: 10%;
+                      padding-bottom: 10%; 
+                      width: 100%; 
+                      height: 100%;
+                      box-sizing: border-box;
 
                     }
                     .kanjiButton.base{
@@ -175,12 +167,32 @@ body {
   display: inline-block;
   width: 100%;
 }                
+                  
 
-#statisticalfellow{
-  text-align:left; 
-  padding:2%;
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5% 3% 3%;
 }
-                                                  
+
+      #statisticalfellow{
+        text-align:left; 
+        visibility: hidden;
+      }
+
+      button.revealfriend {
+        padding: 2%;
+        margin-top: -1%;
+        white-space: nowrap;
+        text-align: center;
+        border:1px transparent;
+        box-sizing: border-box;
+        background-color: #555555;
+        color: #dedede;
+        font-size: 1rem; 
+      }
+          
 
 
 @media(max-width:850px){
@@ -210,12 +222,12 @@ body {
   }
 
   button.kanjiButton {
-    font-size: 3.25rem;
+        font-size: 3.25rem;
 
     padding: 0 3%;
-    
-    padding-top: 5%; /* Set the padding-top to the same value as the desired width */
-    padding-bottom: 5%;
+                      
+    padding-top: 10%; /* Set the padding-top to the same value as the desired width */
+    padding-bottom: 10%; 
   }
 
   #title{
