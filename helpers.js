@@ -94,7 +94,7 @@ function buildButtons(kanjiList){
 
 function tryKanji(newKanji, id) {
   // console.log(state)
-  resetButtons(id, state.prevButton);
+  resetButtons(id);
 
   if (state.taps == 0){ 
 
@@ -111,7 +111,6 @@ function tryKanji(newKanji, id) {
   }
   else if (state.taps == 1)
   {
-
       // user is pushing second button in the pair
 
       const previousKanji = state.kanjiPair[0];
@@ -148,7 +147,7 @@ function tryKanji(newKanji, id) {
         changeStats();
         return;
     } 
-    else if (lookup in wordList) 
+    else if (lookup in wordList && !state.submittedWords.includes(lookup)) 
     {
         stats.passCounter++;
         stats.thisGridPasses++;
@@ -220,7 +219,7 @@ function checkAllButtonsPassed()
 }
 
 
-function resetButtons(thisId, prevId) { 
+function resetButtons(thisId) { 
   // Cycle through every button in the grid
   for (i=0;i<(numWords * 2);i++) 
   {
@@ -244,9 +243,9 @@ function resetButtons(thisId, prevId) {
 
 function addToUserList(word) {
 
-  if (stats.passCounter == 1) {
-    document.getElementById("title").remove();
-  }
+  // if (stats.passCounter == 1) {
+  //   document.getElementById("title").remove();
+  // }
 
   const kana = wordList[word].k;
   const definition = wordList[word].d;
@@ -310,6 +309,47 @@ function addToUserList(word) {
 }
 
 
+function revealOnePair() {
+  resetButtons(undefined);
+
+  let validRevealPair = "";
+  validRevealPair = state.originalWords.find(e => !(state.submittedWords.includes(e)));
+
+  let buttons = document.querySelectorAll('.kanjiButton');  // bc checking against validRevealPair, only grey buttons get through loop
+  let button1, button2;
+  for (let i = 0; i < buttons.length; i++) {
+    if (button1 == undefined && buttons[i].innerHTML.includes(validRevealPair[0])) {
+      button1 = buttons[i].id;
+      // console.log("button1:" + button1);
+    }
+    if(button2 == undefined && buttons[i].innerHTML.includes(validRevealPair[1])){
+      button2 = buttons[i].id;
+      // console.log("button2:" + button2);
+    }
+  }
+
+  addToUserList(validRevealPair);
+  state.submittedWords.push(validRevealPair);
+  state.successes.push(button1);
+  state.successes.push(button2);
+
+  state.taps = 0; 
+  state.prevButton = "";
+  state.hanziPair = [];
+
+  stats.thisGridPasses++;
+  stats.errors += 3;
+
+  document.getElementById(button1).className = "kanjiButton success";
+  document.getElementById(button2).className = "kanjiButton success";
+
+  if (checkAllButtonsPassed()) {
+    buildGrid(numWords);
+  }
+  changeStats();
+}
+
+
 // Smaller functions continue __________________
 
 function shuffle (arr) {
@@ -325,8 +365,10 @@ function shuffle (arr) {
 
 function changeStats(){
   // ◯  ○ ◎  ╳ ᎒᎒᎒  ✕
-  const buildHTML = " □ " + (stats.gridCounter + "　○ " + stats.passCounter + "　⤫ " + stats.errors);
-  document.getElementById("statisticalfellow").innerHTML = buildHTML;
+  const buildHTML = "　□ " + (stats.gridCounter + "　○ " + stats.passCounter + "　⤫ " + stats.errors);
+  let button = document.getElementById("statisticalfellow");
+  button.innerHTML = buildHTML;
+  button.style.visibility = 'visible';
 }
 
 
