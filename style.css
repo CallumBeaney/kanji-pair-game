@@ -182,7 +182,7 @@ body {
       }
 
       button.revealfriend {
-        padding: 2%;
+        padding: 2% 1.5%;
         margin-top: -1%;
         white-space: nowrap;
         text-align: center;
@@ -190,7 +190,8 @@ body {
         box-sizing: border-box;
         background-color: #555555;
         color: #dedede;
-        font-size: 1rem; 
+        font-size: 0.95rem; 
+        letter-spacing: -1.5px;
       }
           
 
