@@ -38,13 +38,38 @@ function buildGrid(){
   stats.gridCounter++;
   stats.thisGridPasses = 0;
   
-  const kanjiList = getListOfKanji(wordList, numWords); // must make const or shuffling operations do not work
+  let allowedWordList = wordList;
+  // if the jouyouLimit is set, we must filter the wordList to allow only kanji that are in the correct grades
+  const jouyouLimit = document.getElementById("jouyou-grade-limit-selector").value;
+  if (jouyouLimit !== "none") {
+    const maxGrade = parseInt(jouyouLimit);
+    let allowedKanji = "";
+    if (maxGrade >= 1) allowedKanji += grade1;
+    if (maxGrade >= 2) allowedKanji += grade2;
+    if (maxGrade >= 3) allowedKanji += grade3;
+    if (maxGrade >= 4) allowedKanji += grade4;
+    if (maxGrade >= 5) allowedKanji += grade5;
+    if (maxGrade >= 6) allowedKanji += grade6;
+    if (maxGrade >= 9) allowedKanji += grade9;
+    allowedWordList = {};
+    for (word in wordList) {
+      if (allowedKanji.includes(word[0]) && allowedKanji.includes(word[1])) {
+        allowedWordList[word] = wordList[word];
+      }
+    }
+  }
+
+  const kanjiList = getListOfKanji(allowedWordList, numWords); // must make const or shuffling operations do not work
   state.gridKanji = kanjiList;
   const shuffledList = shuffle(kanjiList);
   // buildButtons(kanjiList); // for debugging
   buildButtons(shuffledList); 
 }
 
+// Add an event listener to check when the grade limit selector has been changed
+document.getElementById("jouyou-grade-limit-selector").addEventListener("change", function() {
+  buildGrid();
+});
 
 // Helpers hereafter __________________________________
 
