@@ -12,6 +12,19 @@
   <div class="overcontainer">
 
     <div class="gridwrapper">  
+      <div class="selector-wrapper">
+        <label for="jouyou-grade-limit-selector">Select Jouyou grade limit:</label>
+        <select id="jouyou-grade-limit-selector">
+          <option value="none">No restriction</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6 (All Kyouiku)</option>
+          <option value="9">9 (All Jouyou)</option>
+        </select>
+      </div>
       <div class="grid" id="griddyboi">
         <!-- KANJI GO HERE -->
       </div>
@@ -41,6 +54,7 @@
 </body>
 </html>
 <script src="wordlist.js"></script>
+<script src="grades.js"></script>
 <script src="helpers.js"></script>
 <script src="kanjidict.js"></script>
 
